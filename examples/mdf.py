@@ -4,15 +4,18 @@ Created on Tue Oct 14 18:32:46 2014
 
 @author: noore
 """
+import sys,pdb
+sys.path.append("../")
 from scripts.max_min_driving_force import KeggFile2ModelList, MaxMinDrivingForce
-from python.component_contribution import ComponentContribution
+from component_contribution.component_contribution_trainer import ComponentContribution
 from scripts.html_writer import HtmlWriter
 import logging
 import numpy as np
 import matplotlib.pyplot as plt
 
-REACTION_FNAME = 'examples/glycolysis.txt'
-HTML_FNAME = 'res/mdf_glycolysis.html'
+
+REACTION_FNAME = '../examples/glycolysis.txt'
+HTML_FNAME = '../res/mdf_glycolysis.html'
 
 html_writer = HtmlWriter(HTML_FNAME)
 pathways = KeggFile2ModelList(REACTION_FNAME)
