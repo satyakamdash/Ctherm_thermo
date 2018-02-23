@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 # REACTION_FNAME = '../examples/cterm_butanol.txt'
 # HTML_FNAME = '../res/mdf_cterm_butanol.html'
 REACTION_FNAME = '../examples/cterm_butanol_2.txt'
-HTML_FNAME = '../res/mdf_cterm_butanol_2.html'
+HTML_FNAME = '../examples/res_ctherm/mdf_cterm_butanol_2.html'
 
 html_writer = HtmlWriter(HTML_FNAME)
 pathways = KeggFile2ModelList(REACTION_FNAME)

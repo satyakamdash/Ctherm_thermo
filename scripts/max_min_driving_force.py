@@ -106,7 +106,7 @@ class MaxMinDrivingForce(object):
             keggpath.WriteProfileToHtmlTable(self.html_writer, params)
             keggpath.WriteConcentrationsToHtmlTable(self.html_writer, params)
 
-        return _mdf, params['gibbs energies raw']
+        return _mdf, params['gibbs energies raw'], params
 
     def SolveIterative(self, uncertainty_factor=3.0, diagonal_covariance=False):
         S = self.model.S
