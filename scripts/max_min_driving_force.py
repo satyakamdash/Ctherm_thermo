@@ -36,7 +36,7 @@ class MaxMinDrivingForce(object):
         self.fluxes = fluxes
         self.cid2name = cid2name
         self.pH, self.I, self.T = pH, I, T
-        self.c_range = default_c_range
+        self.c_range = (1e-6, 5e-2)#default_c_range
         self.c_mid = default_c_mid
         self.bounds = bounds
 
