@@ -87,10 +87,10 @@ for k in range(len(saveDirs)):
     for r in atp_ratio:
         
         # fix initial ATP/ADP ratio        
-        #p['bounds']['C00002'] = (1e-4 * r, ) * 2
-        #if k == 0:
-            # fix GTP/GDP ratio
-            #p['bounds']['C00044'] = (1e-4 * r, ) * 2
+        p['bounds']['C00002'] = (1e-4 * r, ) * 2
+        
+        # fix GTP/GDP ratio
+        p['bounds']['C00044'] = (1e-4 * r, ) * 2
 
         ref = True
 #        ref_conc = {}
@@ -104,8 +104,8 @@ for k in range(len(saveDirs)):
                 elif cpd == "C00004":
                     # NADH/NAD+ ratio
                     p['bounds'][cpd] = (1e-4 * float(d[cpd]), ) * 2
-                elif cpd == "C00008" and t == 0:
-                    p['bounds'][cpd] = (conc, ) * 2
+                #elif cpd == "C00008" and t == 0:
+                    #p['bounds'][cpd] = (conc, ) * 2
                 elif cpd not in ["C00008"]:
                     # other relative data
                     p['bounds'][cpd] = (conc * d[cpd], ) * 2
