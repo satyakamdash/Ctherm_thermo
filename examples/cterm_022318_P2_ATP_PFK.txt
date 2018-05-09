@@ -11,7 +11,6 @@ BOUND       C00001  1
             C00004  1e-3
             C00469  1e-2
 REACTION    cellobtx  C00001 + C00002 -> C00008 + C00009 (x1)
-            cellobtx  C00001 + C00002 -> C00008 + C00009 (x1)
             cellbp  C00009 + C00185 -> C00031 + C00103 (x1)
             PGMT  C00103 -> C00092 (x1)
             HEX1  C00031 + C00044 -> C00035 + C00092 (x1)
