@@ -18,12 +18,12 @@ import json
 # REACTION_FNAME = '../examples/cterm_butanol.txt'
 # HTML_FNAME = '../res/mdf_cterm_butanol.html'
 
-HTML_FNAME = '../examples/res_ctherm_ref_exp_max10_isobut/'
+HTML_FNAME = '../examples/res_ctherm_ref_exp_max10_2but/'
 
 REACTION_FNAMES = [#'../examples/cterm_022318_P1.txt',
                    #'../examples/cterm_022318_P1_ATPonly.txt',
-                   '../examples/cterm_050818_P1_isobut.txt',
-                   '../examples/cterm_050818_P1_isobut_nadph.txt',
+                   '../examples/cterm_050818_P1_2but.txt',
+                   #'../examples/cterm_050818_P1_isobut_nadph.txt',
                    #'../examples/cterm_050818_P1_isobut_lump_nadh.txt',
                    #'../examples/cterm_050818_P1_isobut_lump_nadph.txt',
                    #'../examples/cterm_022318_P3_PYK.txt',
@@ -34,8 +34,8 @@ REACTION_FNAMES = [#'../examples/cterm_022318_P1.txt',
                    ]
 saveDirs = [#"P1_ref_path",
             #"P1_ref_path_noGTP",
-            "P1_isobut",
-            "P1_isobut_nadph",
+            "P1_2but",
+            #"P1_isobut_nadph",
             #"P1_isobut_lump_nadh",
             #"P1_isobut_lump_nadph",
             # "test",
@@ -62,7 +62,7 @@ while l != "":
 f.close()
 
 nadphRatio = 1
-ref_conc0 = {'C14710': 10,  # replace ethanol by isobutanol
+ref_conc0 = {'C88888': 10,  # replace ethanol by 2-butanol
             'C00004': 0.3,
             'C00024': 0.75,
             'C00002': 13.55,
@@ -71,19 +71,18 @@ ref_conc0 = {'C14710': 10,  # replace ethanol by isobutanol
             'C00354': 4.77,
             'C00092': 23.75,
             'C00074': 0.14,
-            'C00005': nadphRatio * 1e-4,
-            'C00022': 0.074,
+            #'C00005': nadphRatio * 1e-4,
+            #'C00022': 0.074,
+			'C00022': 0.074,
 			'C00103': 5.52
             }
-# C00469, C00103, C00022
 
+downstreamMets = ['C06010', 'C00810', 'C03044', 'C02845']
 
-downstreamMets = ['C06010', 'C04272', 'C00141', 'C80061']
+nadphRatio2Test = [0.1]#, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
+downstreamMaxConc = [1e-6, 2e-6, 5e-6, 1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2]
 
-nadphRatio2Test = [0.1, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
-downstreamMaxConc = [1e-6, 3e-6, 1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 1e-2] #[1e-6, 2e-6, 5e-6, 1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2]
-
-dsRxnIDs = ['ALS', 'KARI_NADH', 'KARI_NADPH', 'DHAD', 'KIVD', 'ADH_IBT']
+dsRxnIDs = ['ALS', 'ALDC', '23BDH', 'DDHT', 'SADH']
 data = {}
 
 for k in range(len(saveDirs)):
@@ -104,7 +103,7 @@ for k in range(len(saveDirs)):
                 
                 p['bounds']['C00003'] = (1e-4,) * 2
                 p['bounds']['C00004'] = (0.3e-4,) * 2
-                p['bounds']['C00006'] = (1e-4,) * 2
+                #p['bounds']['C00006'] = (1e-4,) * 2
                 
                 p['bounds']['C00008'] = (1e-4,) * 2
              
@@ -137,7 +136,7 @@ for k in range(len(saveDirs)):
                 
                     for d in exp_data:
                         for cpd, conc in ref_conc.iteritems():
-                            if cpd == "C14710":
+                            if cpd == "C88888":
                                 # absolute EtOH conc
                                 ## replace ethanol by isobutanol
                                 #p['bounds'][cpd] = (d[cpd], ) * 2
@@ -161,12 +160,12 @@ for k in range(len(saveDirs)):
                             
                         
                         #if k == 0:
-                        print "ATP & GTP, time point %d" %t
+                        print "k %d ratio %.1f q %d t %d" %(k, ratio, q, t)
                         #else:
                          #   print "ATP only, time point %d" %t
                             
                         #print p["bounds"]    
-                        saveNameCur = HTML_FNAME + saveDirs[k] + "/atp%d_ratio%s%.0e" %(r, fixedOrInit, ratio)
+                        saveNameCur = HTML_FNAME + saveDirs[k] + "/atp%d" %(r)
                         if k <= 1:
                             saveNameCur += "_dsMax%.0e" %downstreamMaxConc[q]
 
@@ -205,5 +204,5 @@ for k in range(len(saveDirs)):
                             #print ref_conc
 
 
-with open(HTML_FNAME + '/mdf_isobut.json', 'w') as fp:
+with open(HTML_FNAME + '/mdf_2but.json', 'w') as fp:
     json.dump(data, fp, indent=2)
