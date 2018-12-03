@@ -16,18 +16,18 @@ from component_contribution.kegg_model import KeggModel
 from scripts.mdf_dual import KeggPathway
 from scripts.html_writer import HtmlWriter, NullHtmlWriter
 from scripts.kegg_parser import ParsedKeggFile
-    
+
 class ConcentrationConstraints(object):
     pass
 
 class MaxMinDrivingForce(object):
-    
+
     def __init__(self, model, fluxes, bounds, pH, I, T, html_writer=None,
                  cid2name=None):
         """
             model    - a KeggModel object
             fluxes   - a list of fluxes, should match the model in length
-            bounds   - a dictionary mapping KEGG compound IDs to tuples of 
+            bounds   - a dictionary mapping KEGG compound IDs to tuples of
                        (low,up) bound
             pH, I, T - the aqueous conditions for the thermodynamics
             html_writer - (optional) write a report to HTML file
@@ -91,7 +91,7 @@ class MaxMinDrivingForce(object):
         total_dG_prime = params.get('maximum total dG', np.nan)
         odfe = 100 * np.tanh(_mdf / (2*R*self.T))
         average_dG_prime = total_dG_prime/np.sum(self.fluxes)
-        average_dfe = 100 * np.tanh(-average_dG_prime / (2*R*self.T))        
+        average_dfe = 100 * np.tanh(-average_dG_prime / (2*R*self.T))
 
         if verbose:
             res =  ["MDF = %.1f (avg. = %.1f) kJ/mol" % (_mdf, -average_dG_prime),
@@ -99,7 +99,7 @@ class MaxMinDrivingForce(object):
                    "Total &Delta;<sub>r</sub>G' = %.1f kJ/mol" % total_dG_prime,
                    "no. steps = %g" % np.sum(self.fluxes)]
             self.html_writer.write_ul(res)
-        
+            ## stop plot display
             profile_fig = keggpath.PlotProfile(params)
             plt.title('ODFE = %.1f%%' % odfe, figure=profile_fig)
             self.html_writer.embed_matplotlib_figure(profile_fig, width=320, height=320)
@@ -120,12 +120,12 @@ class MaxMinDrivingForce(object):
             dG0_prime -= uncertainty_factor * dG0_std
         else:
             sigma = uncertainty_factor * sqrt_Sigma
-        
+
         cid2bounds = self.GetBounds()
-        
+
         rid2bounds = {}
         total_active_reactions = len(filter(None, f.flat))
-        
+
         iter_counters = [-1] * len(rids)
         params_list = []
         for i in xrange(len(rids)):
@@ -136,19 +136,19 @@ class MaxMinDrivingForce(object):
                                    cid2name=self.cid2name)
             _mdf, params = keggpath.FindMDF(calculate_totals=False)
             params_list.append(params)
-            
+
             # is not the same and maybe there is a mixup
             tmp = zip(rids,
                       map(lambda x:'%.1f' % x, params['gibbs energies'].flat),
                       map(lambda x:'%.1f' % x, params['reaction prices'].flat))
-            
+
             logging.debug('\n'.join(map(', '.join, tmp)))
-        
+
             # fix the driving force of the reactions that have shadow prices
             # to the MDF value, and remove them from the optimization in the
             # next round
             shadow_prices = params['reaction prices']
-            
+
             print '\rIterative MDF: %3d%%' % \
                 (len(rid2bounds) * 100 / total_active_reactions),
             for rid, s_p in zip(rids, shadow_prices):
@@ -156,12 +156,12 @@ class MaxMinDrivingForce(object):
                     rid2bounds[rid] = -_mdf + 1e-4 # add 'epsilon' for numerical reasons
                     iter_counters[rids.index(rid)] = i
 
-            if len(rid2bounds) == total_active_reactions: 
+            if len(rid2bounds) == total_active_reactions:
                 break
-        
+
         print '\rIterative MDF: [DONE]'
         self.html_writer.write("<p>MDF = %.1f kJ/mol</p>\n" % params_list[0]['MDF'])
-        
+
         params_list[-1]['profile figure'] = keggpath.PlotProfile(params_list[-1])
         self.html_writer.embed_matplotlib_figure(params_list[-1]['profile figure'],
                                                  width=320, height=320)
@@ -185,7 +185,7 @@ class MaxMinDrivingForce(object):
                     d['I%02d' % i] = '%.3f' % p['gibbs energies'][r, 0]
                 else:
                     d['I%02d' % i] = '<b>%.3f</b>' % p['gibbs energies'][r, 0]
-            
+
             dict_list.append(d)
 
         dict_list.sort(key=lambda d:d['iteration'], reverse=False)
@@ -195,7 +195,7 @@ class MaxMinDrivingForce(object):
              'formula'  : keggpath.GetTotalReactionString(),
              headers[3] : float(keggpath.fluxes * params_list[-1]['gibbs energies'])}
         dict_list.append(d)
-        
+
         self.html_writer.write_table(dict_list, headers=headers, decimal=1)
 
         concentrations = params_list[-1]['concentrations']
@@ -211,11 +211,11 @@ class MaxMinDrivingForce(object):
             d['Concentration [M]'] = '%.2e' % concentrations[c, 0]
             d['Concentration UB [M]'] = '%.2e' % ub
             dict_list.append(d)
-       
+
         self.html_writer.write_table(dict_list, headers=headers)
 
 ###############################################################################
-            
+
 def KeggFile2ModelList(pathway_file):
     kegg_file = ParsedKeggFile.FromKeggFile(pathway_file)
     entries = kegg_file.entries()
@@ -236,7 +236,7 @@ def KeggFile2ModelList(pathway_file):
 if __name__ == '__main__':
     #fname = sys.argv[1]
     fname = 'mdf_pathways'
-    
+
     REACTION_FNAME = 'scripts/%s.txt' % fname
     pathways = KeggFile2ModelList(REACTION_FNAME)
     html_writer = HtmlWriter('res/%s.html' % fname)
@@ -254,7 +254,7 @@ if __name__ == '__main__':
 
         mdf_solution, dGm_prime = mdf.Solve()
         logging.info('Pathway %s: MDF = %.1f' % (p['entry'], mdf_solution))
-        
+
         matdict[p['entry'] + '.dGm_prime'] = dGm_prime
-        
+
     savemat('res/%s.mat' % fname, matdict)

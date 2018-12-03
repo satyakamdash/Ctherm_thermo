@@ -5,7 +5,7 @@ import matplotlib.cm as cm
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
-f = open("res_ctherm_ref_exp_max10_2but/mdf_2but.json", "r")
+f = open("./examples/res_ctherm_ref_exp_max10_2but/mdf_2but.json", "r")
 s = f.read()
 data = json.loads(s)
 f.close()
@@ -19,7 +19,7 @@ while line != "":
 	ibutConc.append(float(line.split(" ")[0]))
 	line = f.readline()
 
-nadphRatio2Test = [0.1]#, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
+nadphRatio2Test = [4.9]#, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
 downstreamMaxConc = [1e-6, 2e-6, 5e-6, 1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2]
 
 p, q = len(nadphRatio2Test), len(downstreamMaxConc)
@@ -62,10 +62,10 @@ for k1, v1 in data.iteritems():
 				index = [k for k in range(p * q * 10) if  data2[k1]["time"][k] == t and data2[k1]["nadph"][k] == i and data2[k1]["maxConc"][k] == j][0]
 				for k in keys:
 					listTmp[k].append(data2[k1][k][index])
-					
+
 			for k in keys:
 				data3[k1][t][k].append(listTmp[k])
-				
+
 		for k in keys:
 			data3[k1][t][k] = np.asarray(data3[k1][t][k])
 
@@ -82,7 +82,7 @@ for k in keys:
 	for tPlot in tToPlot:
 		maxCur[k] = max(maxCur[k], data3[k1][tPlot][k].max())
 		minCur[k] = min(minCur[k], data3[k1][tPlot][k].min())
-	
+
 	if maxCur[k] == minCur[k]:
 		maxCur[k] += 1
 		minCur[k] -= 1
@@ -97,31 +97,40 @@ for k in keyToPlot:
 		cs = plt.plot(np.ndarray.tolist(data3[k1][tPlot]["maxConc"] * 1000)[0], np.ndarray.tolist(data3[k1][tPlot][k])[0])
 #		ext = (min(downstreamMaxConc), max(downstreamMaxConc), min(nadphRatio2Test), max(nadphRatio2Test))
 		#ext=(0,1,0,1)
-		
+
 #		cs = plt.contourf(data3[k1][tPlot]["maxConc"] * 1000, data3[k1][tPlot]["nadph"], \
 #					   data3[k1][tPlot][k], levels)#, colors=((0.2,0.2,1), (0.2,0.2,.9), (0.2,0.2,.75), (0.2,0.2,.5), (0,0,0), (.5,0.2,0.2), (.75,0.2,0.2), (.9,0.2,0.2), (1,0.2,0.2)))
 #		if tPlot == 8:
 ##			CB = plt.colorbar(cs,fraction=0.046, pad=0.04)
 #			CB = plt.colorbar(cs, extend='both', aspect = 5)
-#			CB.set_ticks([levels[kL] for kL in [0, 2, 4, 6, 8]]) 
+#			CB.set_ticks([levels[kL] for kL in [0, 2, 4, 6, 8]])
 
 		ax = plt.gca()
 		ax.set_xscale('log')
-		ax.set_ylim(bottom=minCur[k], top=maxCur[k])
+		if k == "mdf":
+			ax.set_ylim(bottom=minCur[k], top=maxCur[k])
+		else:
+			ax.set_ylim(bottom=0, top=1)
+
 		ax.set_xticks([1e-3, 1e-1, 1e+1])
 #		ax.set_yscale('log')
 #		ax.yaxis.minorTicks = []
 		if tPlot != 0:
 			ax.set_yticks([])
+		else:
+			if k == "mdf":
+				ax.set_yticks([minCur[k], 0, maxCur[k]])
+			else:
+				ax.set_yticks([0, 0.5, 1])
 		#elif k == "R5":
 			#ax.set_ylabel('NADPH/NADP+ ratio')
-		
+
 		if k != keyToPlot[-1]:
 			ax.set_xticks([])
 		#elif tPlot == 0:
 			#ax.set_xlabel('max. allowable conc. of downstream metabolites')
-		
+
 #		plt.minorticks_off()
 		plt.rcParams.update({'font.size': 3.5})
-		
+
 plt.show()

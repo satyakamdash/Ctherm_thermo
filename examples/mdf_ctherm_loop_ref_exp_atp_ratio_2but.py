@@ -5,7 +5,7 @@ Created on Tue Oct 14 18:32:46 2014
 @author: noore
 """
 import sys,pdb
-sys.path.append("../")
+#sys.path.append("../")
 from scripts.max_min_driving_force import KeggFile2ModelList, MaxMinDrivingForce
 from component_contribution.component_contribution_trainer import ComponentContribution
 from scripts.html_writer import HtmlWriter
@@ -18,11 +18,11 @@ import json
 # REACTION_FNAME = '../examples/cterm_butanol.txt'
 # HTML_FNAME = '../res/mdf_cterm_butanol.html'
 
-HTML_FNAME = '../examples/res_ctherm_ref_exp_max10_2but/'
+HTML_FNAME = './examples/res_ctherm_ref_exp_max10_2but/'
 
 REACTION_FNAMES = [#'../examples/cterm_022318_P1.txt',
                    #'../examples/cterm_022318_P1_ATPonly.txt',
-                   '../examples/cterm_050818_P1_2but.txt',
+                   './examples/cterm_050818_P1_2but.txt',
                    #'../examples/cterm_050818_P1_isobut_nadph.txt',
                    #'../examples/cterm_050818_P1_isobut_lump_nadh.txt',
                    #'../examples/cterm_050818_P1_isobut_lump_nadph.txt',
@@ -61,8 +61,22 @@ while l != "":
 
 f.close()
 
-nadphRatio = 1
-ref_conc0 = {'C88888': 10,  # replace ethanol by 2-butanol
+nadphRatio = 4.9
+ref_conc0 = {'C06142': 10,  # replace ethanol by 2-butanol using 1-butanol instead to avoid error
+            'C00004': 0.08,
+            'C00024': 0.83,
+            'C00002': 2.70,
+            'C00008': 0.11,
+            'C00020': 0.22,
+            'C00354': 1.50,
+            'C00092': 8.19,
+            'C00074': 0.69,
+            'C00005': 0.38,
+            'C00022': 12.65,
+            'C00103': 6.66
+            }
+
+'''ref_conc0 = {'C88888': 10,  # replace ethanol by 2-butanol
             'C00004': 0.3,
             'C00024': 0.75,
             'C00002': 13.55,
@@ -75,11 +89,11 @@ ref_conc0 = {'C88888': 10,  # replace ethanol by 2-butanol
             #'C00022': 0.074,
 			'C00022': 0.074,
 			'C00103': 5.52
-            }
+            }'''
 
 downstreamMets = ['C06010', 'C00810', 'C03044', 'C02845']
 
-nadphRatio2Test = [0.1]#, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
+nadphRatio2Test = [4.9]#, 0.3, 1, 3, 10]#[0.1, 0.2, 0.5, 1, 2, 5, 10]
 downstreamMaxConc = [1e-6, 2e-6, 5e-6, 1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2]
 
 dsRxnIDs = ['ALS', 'ALDC', '23BDH', 'DDHT', 'SADH']
@@ -99,44 +113,44 @@ for k in range(len(saveDirs)):
             data[saveDirs[k]][ratio][downstreamMaxConc[q]] = {}
 
             if True: #q == 0 or "lump" not in saveDirs[k]:
-                
-                
+
+
                 p['bounds']['C00003'] = (1e-4,) * 2
                 p['bounds']['C00004'] = (0.3e-4,) * 2
                 #p['bounds']['C00006'] = (1e-4,) * 2
-                
+
                 p['bounds']['C00008'] = (1e-4,) * 2
-             
+
                 #if k == 0:
                 p['bounds']['C00035'] = (1e-4,) * 2
-                
+
                 if k <= 1:
                     for m in downstreamMets:
                         p['bounds'][m] = (1e-6, downstreamMaxConc[q])
 
                 cid = p['model'].cids
-                
+
                 ref_conc = {k: float(v) / 1000 for k,v in ref_conc0.iteritems()}
-                
+
                 for r in atp_ratio:
-                    
+
                     #tag = "r%(ratio, downstreamMaxConc[q], r)
-                    
+
                     dictCur = {}
 
-                    # fix initial ATP/ADP ratio        
+                    # fix initial ATP/ADP ratio
                     p['bounds']['C00002'] = (1e-4 * r, ) * 2
-                    
+
                     # fix GTP/GDP ratio
                     p['bounds']['C00044'] = (1e-4 * r, ) * 2
 
                     ref = True
             #        ref_conc = {}
                     t = 0
-                
+
                     for d in exp_data:
                         for cpd, conc in ref_conc.iteritems():
-                            if cpd == "C88888":
+                            if cpd == "C06142":
                                 # absolute EtOH conc
                                 ## replace ethanol by isobutanol
                                 #p['bounds'][cpd] = (d[cpd], ) * 2
@@ -156,15 +170,15 @@ for k in range(len(saveDirs)):
                             elif cpd not in ["C00008", "C00469"]:
                                 # other relative data
                                 p['bounds'][cpd] = (conc * d[cpd], ) * 2
-                            
-                            
-                        
+
+
+
                         #if k == 0:
                         print "k %d ratio %.1f q %d t %d" %(k, ratio, q, t)
                         #else:
                          #   print "ATP only, time point %d" %t
-                            
-                        #print p["bounds"]    
+
+                        #print p["bounds"]
                         saveNameCur = HTML_FNAME + saveDirs[k] + "/atp%d" %(r)
                         if k <= 1:
                             saveNameCur += "_dsMax%.0e" %downstreamMaxConc[q]
@@ -173,8 +187,8 @@ for k in range(len(saveDirs)):
                         mdf = MaxMinDrivingForce(p['model'], p['fluxes'], p['bounds'],
                                              pH=p['pH'], I=p['I'], T=p['T'],
                                              html_writer=html_writer)
-                        
-                        
+
+
                         mdf_solution, dG_r_prime, param = mdf.Solve(uncertainty_factor=3.0)
                         #plt.show()
 
@@ -192,7 +206,7 @@ for k in range(len(saveDirs)):
                         data[saveDirs[k]][ratio][downstreamMaxConc[q]][r] = dictCur
 
                         t += 1
-                        
+
                         if ref:
                             ref = False
                             conc_list = [x[0] for x in param['concentrations'].tolist()]
@@ -200,7 +214,7 @@ for k in range(len(saveDirs)):
                             for c in cid:
                                 if c in mets_constr and c not in ref_conc:
                                     ref_conc[c] = ref_conc_comput[c]
-                            
+
                             #print ref_conc
 
 

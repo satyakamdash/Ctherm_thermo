@@ -5,7 +5,7 @@ Created on Tue Oct 14 18:32:46 2014
 @author: noore
 """
 import sys,pdb
-sys.path.append("../")
+#sys.path.append("../")
 from scripts.max_min_driving_force import KeggFile2ModelList, MaxMinDrivingForce
 from component_contribution.component_contribution_trainer import ComponentContribution
 from scripts.html_writer import HtmlWriter
@@ -17,12 +17,12 @@ import matplotlib.pyplot as plt
 # REACTION_FNAME = '../examples/cterm_butanol.txt'
 # HTML_FNAME = '../res/mdf_cterm_butanol.html'
 
-HTML_FNAME = '../examples/res_ctherm/'
+HTML_FNAME = './examples/res_ctherm/'
 
-REACTION_FNAMES = ['../examples/cterm_022318_P1.txt',
-                   '../examples/cterm_022318_P1_ATPonly.txt',
+REACTION_FNAMES = ['./examples/cterm_022318_P1.txt',
+                   './examples/cterm_022318_P1_ATPonly.txt',
                    ]
-saveDirs = ["ATPADPfree", 
+saveDirs = ["ATPADPfree",
             "ATPADPfree_noGTP"
             ]
 atp_ratio = [1, 5, 10, 20]
@@ -47,21 +47,21 @@ for k in range(len(saveDirs)):
     pathways = KeggFile2ModelList(REACTION_FNAMES[k])
     p = pathways[0]
     cc = ComponentContribution.init()
-    
+
     p['model'].add_thermo(cc)
-    
+
     p['bounds']['C00003'] = (1e-2,) * 2
     p['bounds']['C00004'] = (0.3e-2,) * 2
-    
+
     p['bounds']['C00008'] = (1e-4,) * 2
     if k == 0:
         p['bounds']['C00035'] = (1e-4,) * 2
-    
+
     cid = p['model'].cids
-    
+
     for r in atp_ratio:
-        
-        # fix ATP/ADP ratio        
+
+        # fix ATP/ADP ratio
         p['bounds']['C00002'] = (1e-4 * r, ) * 2
         if k == 0:
             # fix GTP/GDP ratio
@@ -70,7 +70,7 @@ for k in range(len(saveDirs)):
         ref = True
         ref_conc = {}
         t = 0
-    
+
         for d in exp_data:
             if not ref:
                 for cpd, conc in ref_conc.iteritems():
@@ -83,17 +83,17 @@ for k in range(len(saveDirs)):
                     else:
                         # other relative data
                         p['bounds'][cpd] = (conc * d[cpd], ) * 2
-            
+
             html_writer = HtmlWriter(HTML_FNAME + saveDirs[k] + "/atp%d_t%d.html" %(r, t))
             mdf = MaxMinDrivingForce(p['model'], p['fluxes'], p['bounds'],
                                  pH=p['pH'], I=p['I'], T=p['T'],
                                  html_writer=html_writer)
-            
-            
+
+
             mdf_solution, dG_r_prime, param = mdf.Solve(uncertainty_factor=3.0)
             #plt.show()
             t += 1
-            
+
             if ref:
                 ref = False
                 conc_list = [x[0] for x in param['concentrations'].tolist()]

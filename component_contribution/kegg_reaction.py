@@ -138,6 +138,7 @@ class KeggReaction(object):
         
             elements, Ematrix = self.ccache.get_element_matrix(cids)
             conserved = coeffs * Ematrix
+
     
             if np.any(np.isnan(conserved), 1):
                 warning_str = 'cannot test reaction balancing because of unspecific ' + \
