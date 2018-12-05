@@ -104,18 +104,18 @@ for k in range(len(saveDirs)):
             for cpd, conc in ref_conc.iteritems():
                 if cpd == "C00469":
                     # absolute EtOH conc
-                    p['bounds'][cpd] = (d[cpd], ) * 2
+                    p['bounds'][cpd] = (d[cpd], d[cpd])
                 elif cpd == "C00004":
                     # NADH/NAD+ ratio
-                    p['bounds'][cpd] = (conc * float(d[cpd]) / 0.3, ) * 2
-                elif cpd == "C00044":
-                    # GTP/GDP+ ratio
-                    p['bounds'][cpd] = (conc * float(d['C00002']), ) * 2
+                    p['bounds'][cpd] = (0.67 * conc * float(d[cpd]) / 0.3, 1.33 * conc * float(d[cpd]) / 0.3)
+                elif cpd == "C00035":
+                    # NADH/NAD+ ratio
+                    p['bounds'][cpd] = (0.67 * conc * float(d['C00002']), 1.33 * conc * float(d['C00002']))
                 #elif cpd == "C00008" and t == 0:
                     #p['bounds'][cpd] = (conc, ) * 2
                 elif cpd not in ["C00008","C00085","C00006","C00003","C00118","C00011","C00197","C00010","C00044"]:
                     # other relative data
-                    p['bounds'][cpd] = (conc * d[cpd], ) * 2
+                    p['bounds'][cpd] = (0.67 * conc * d[cpd], 1.33 * conc * d[cpd])
 
             html_writer = HtmlWriter(HTML_FNAME + saveDirs[k] + "/atp%d_t%d.html" %(r, t))
             mdf = MaxMinDrivingForce(p['model'], p['fluxes'], p['bounds'],
