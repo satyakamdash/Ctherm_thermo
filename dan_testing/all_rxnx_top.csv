@@ -1,0 +1,15 @@
+ReactionFormula,RelativeFlux
+H2O + ATP -> ADP + Phosphate ,1
+Phosphate + Cellobiose -> D-Glucose + Glucose-1-phosphate ,1
+D-Glucose + GTP <=> D-Glucose 6-phosphate + GDP,2
+Glucose-1-phosphate -> D-glucose-6-phosphate ,2
+D-Glucose 6-phosphate <=> D-Fructose 6-phosphate,2
+"PPi + D-fructose-6-phosphate -> Phosphate + D-fructose-1,6-bisphosphate + H+" ,2
+"ATP + D-Fructose 6-phosphate <=> ADP + Fructose-1,6-bisphosphate",2
+"Fructose-1,6-bisphosphate <=> Glycerone phosphate + D-Glyceraldehyde 3-phosphate",2
+Glycerone phosphate <=> D-Glyceraldehyde 3-phosphate,4
+"Pi + NAD+ + D-Glyceraldehyde 3-phosphate <=> NADH + 1,3-Bisphosphoglycerate",4
+D-Glyceraldehyde 3-phosphate + NADP  + H2O <=> D-Glycerate-3-phosphate + NADPH,4
+"ADP + 1,3-Bisphosphoglycerate <=> ATP + D-Glycerate-3-phosphate",4
+"GDP + 1,3-Bisphosphoglycerate <=> GTP + D-Glycerate-3-phosphate",4
+

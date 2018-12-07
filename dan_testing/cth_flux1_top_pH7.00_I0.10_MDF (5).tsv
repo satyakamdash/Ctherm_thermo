@@ -1,0 +1,113 @@
+!!!SBtab SBtabVersion='1.0' Document='model' Date='2018-12-7'
+!!SBtab TableID='Reaction' TableType='Reaction' TableName='Reaction' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-7'
+!ID	!Name	!ReactionFormula	!Identifiers:kegg.reaction
+R_nickel_tra_R00086	R_nickel_tra_R00086	C_atp + C_h2o <=> C_adp + C_orthophosphate	R00086
+R_cellobiose_R00952	R_cellobiose_R00952	C_orthophosphate + C_cellobiose <=> C_d_glucose + C_cori_ester	R00952
+R_RXN_Q00002	R_RXN_Q00002	C_d_glucose + C_gtp <=> C_glucose_6_phosphate + C_gdp	
+R_glucose_ph_R00959	R_glucose_ph_R00959	C_cori_ester <=> C_glucose_6_phosphate	R00959
+R_phosphohex_R00771	R_phosphohex_R00771	C_glucose_6_phosphate <=> C_d_fructose_6_phosphoric_acid	R00771
+R_diphosphat_R00764	R_diphosphat_R00764	C_diphosphate + C_d_fructose_6_phosphoric_acid <=> C_orthophosphate + C_d_fructose_16_bisphosphate	R00764
+R_fructose_b_R01068	R_fructose_b_R01068	C_d_fructose_16_bisphosphate <=> C_glycerone_phosphate + C_d_glyceraldehyde_3_phosphate	R01068
+R_triose_pho_R01015	R_triose_pho_R01015	C_glycerone_phosphate <=> C_d_glyceraldehyde_3_phosphate	R01015
+R_glyceralde_R01061	R_glyceralde_R01061	C_orthophosphate + C_nad + C_d_glyceraldehyde_3_phosphate <=> C_nadh + C_3_phospho_d_glyceroyl_phosphate	R01061
+R_phosphogly_R01517	R_phosphogly_R01517	C_gdp + C_3_phospho_d_glyceroyl_phosphate <=> C_gtp + C_3_phospho_d_glycerate	R01517
+R_phosphogly_R01518	R_phosphogly_R01518	C_3_phospho_d_glycerate <=> C_2_phospho_d_glycerate	R01518
+R_phosphopyr_R00658	R_phosphopyr_R00658	C_2_phospho_d_glycerate <=> C_phosphoenolpyruvate + C_h2o	R00658
+R_pyruvate_p_R00206	R_pyruvate_p_R00206	C_amp + C_diphosphate + C_phosphoenolpyruvate <=> C_atp + C_orthophosphate + C_pyruvate	R00206
+R_pyruvate_d_R00224	R_pyruvate_d_R00224	C_pyruvate <=> C_acetaldehyde + C_co2	R00224
+R_adh_R00754	R_adh_R00754	C_acetaldehyde + C_nadh <=> C_ethanol + C_nad	R00754
+
+!!SBtab TableID='Compound' TableType='Compound' TableName='Compound' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-7'
+!ID	!Name	!Identifiers:kegg.compound	!IsConstant
+C_pyruvate	C_pyruvate	C00022	False
+C_d_fructose_6_phosphoric_acid	C_d_fructose_6_phosphoric_acid	C00085	False
+C_d_glucose	C_d_glucose	C00031	False
+C_amp	C_amp	C00020	False
+C_3_phospho_d_glycerate	C_3_phospho_d_glycerate	C00197	False
+C_diphosphate	C_diphosphate	C00013	False
+C_glucose_6_phosphate	C_glucose_6_phosphate	C00092	False
+C_ethanol	C_ethanol	C00469	False
+C_phosphoenolpyruvate	C_phosphoenolpyruvate	C00074	False
+C_nadh	C_nadh	C00004	False
+C_2_phospho_d_glycerate	C_2_phospho_d_glycerate	C00631	False
+C_atp	C_atp	C00002	False
+C_glycerone_phosphate	C_glycerone_phosphate	C00111	False
+C_d_fructose_16_bisphosphate	C_d_fructose_16_bisphosphate	C00354	False
+C_co2	C_co2	C00011	False
+C_3_phospho_d_glyceroyl_phosphate	C_3_phospho_d_glyceroyl_phosphate	C00236	False
+C_acetaldehyde	C_acetaldehyde	C00084	False
+C_cori_ester	C_cori_ester	C00103	False
+C_adp	C_adp	C00008	False
+C_gdp	C_gdp	C00035	False
+C_cellobiose	C_cellobiose	C00185	False
+C_d_glyceraldehyde_3_phosphate	C_d_glyceraldehyde_3_phosphate	C00118	False
+C_gtp	C_gtp	C00044	False
+C_nad	C_nad	C00003	False
+C_orthophosphate	C_orthophosphate	C00009	False
+C_h2o	C_h2o	C00001	False
+
+!!SBtab TableID='RelativeFlux' TableType='Quantity' TableName='RelativeFlux' DocumentName=' Document=' Unit='mM/s' SBtabVersion='1.0' Date='2018-12-7'
+!QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value
+flux	R_nickel_tra_R00086	R00086	1.0
+flux	R_cellobiose_R00952	R00952	1.0
+flux	R_RXN_Q00002		1.0
+flux	R_glucose_ph_R00959	R00959	1.0
+flux	R_phosphohex_R00771	R00771	2.0
+flux	R_diphosphat_R00764	R00764	2.0
+flux	R_fructose_b_R01068	R01068	2.0
+flux	R_triose_pho_R01015	R01015	4.0
+flux	R_glyceralde_R01061	R01061	4.0
+flux	R_phosphogly_R01517	R01517	4.0
+flux	R_phosphogly_R01518	R01518	4.0
+flux	R_phosphopyr_R00658	R00658	4.0
+flux	R_pyruvate_p_R00206	R00206	4.0
+flux	R_pyruvate_d_R00224	R00224	4.0
+flux	R_adh_R00754	R00754	4.0
+
+!!SBtab TableID='ConcentrationConstraint' TableType='Quantity' TableName='ConcentrationConstraint' DocumentName=' Document=' Unit='M' SBtabVersion='1.0' Date='2018-12-7'
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max
+concentration	C_pyruvate	C00022	1e-06	0.01
+concentration	C_d_fructose_6_phosphoric_acid	C00085	1e-06	0.01
+concentration	C_d_glucose	C00031	1e-06	0.01
+concentration	C_amp	C00020	0.0005	0.0005
+concentration	C_3_phospho_d_glycerate	C00197	1e-06	0.01
+concentration	C_diphosphate	C00013	0.001	0.001
+concentration	C_glucose_6_phosphate	C00092	1e-06	0.01
+concentration	C_ethanol	C00469	1e-06	0.01
+concentration	C_phosphoenolpyruvate	C00074	1e-06	0.01
+concentration	C_nadh	C00004	0.0001	0.0001
+concentration	C_2_phospho_d_glycerate	C00631	1e-06	0.01
+concentration	C_atp	C00002	0.005	0.005
+concentration	C_glycerone_phosphate	C00111	1e-06	0.01
+concentration	C_d_fructose_16_bisphosphate	C00354	1e-06	0.01
+concentration	C_co2	C00011	1e-05	1e-05
+concentration	C_3_phospho_d_glyceroyl_phosphate	C00236	1e-06	0.01
+concentration	C_acetaldehyde	C00084	1e-06	0.01
+concentration	C_cori_ester	C00103	1e-06	0.01
+concentration	C_adp	C00008	0.0005	0.0005
+concentration	C_gdp	C00035	1e-06	0.01
+concentration	C_cellobiose	C00185	1e-06	0.01
+concentration	C_d_glyceraldehyde_3_phosphate	C00118	1e-06	0.01
+concentration	C_gtp	C00044	1e-06	0.01
+concentration	C_nad	C00003	0.001	0.001
+concentration	C_orthophosphate	C00009	0.01	0.01
+concentration	C_h2o	C00001	1.0	1.0
+
+!!SBtab TableID='Parameter' TableType='Quantity' TableName='Parameter' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-7' pH='7.00' IonicStrength='0.10' IonicStrengthUnit='M'
+!QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
+equilibrium constant	R_nickel_tra_R00086		42296.11170824596	dimensionless	R00086		kEQ_R_nickel_tra_R00086
+equilibrium constant	R_cellobiose_R00952		0.23094168568064813	dimensionless	R00952		kEQ_R_cellobiose_R00952
+equilibrium constant	R_RXN_Q00002		391.53159657219993	dimensionless			kEQ_R_RXN_Q00002
+equilibrium constant	R_glucose_ph_R00959		19.98696218055837	dimensionless	R00959		kEQ_R_glucose_ph_R00959
+equilibrium constant	R_phosphohex_R00771		0.3608892454158759	dimensionless	R00771		kEQ_R_phosphohex_R00771
+equilibrium constant	R_diphosphat_R00764		5.790890864998598	dimensionless	R00764		kEQ_R_diphosphat_R00764
+equilibrium constant	R_fructose_b_R01068		0.0003377544218308462	dimensionless	R01068		kEQ_R_fructose_b_R01068
+equilibrium constant	R_triose_pho_R01015		0.10966257096243406	dimensionless	R01015		kEQ_R_triose_pho_R01015
+equilibrium constant	R_glyceralde_R01061		0.043290979452048114	dimensionless	R01061		kEQ_R_glyceralde_R01061
+equilibrium constant	R_phosphogly_R01517		4651.661956241579	dimensionless	R01517		kEQ_R_phosphogly_R01517
+equilibrium constant	R_phosphogly_R01518		0.18215935526460458	dimensionless	R01518		kEQ_R_phosphogly_R01518
+equilibrium constant	R_phosphopyr_R00658		5.195720022018543	dimensionless	R00658		kEQ_R_phosphopyr_R00658
+equilibrium constant	R_pyruvate_p_R00206		2753.77618908898	dimensionless	R00206		kEQ_R_pyruvate_p_R00206
+equilibrium constant	R_pyruvate_d_R00224		1620.6623703987977	dimensionless	R00224		kEQ_R_pyruvate_d_R00224
+equilibrium constant	R_adh_R00754		6320.794051065262	dimensionless	R00754		kEQ_R_adh_R00754
+

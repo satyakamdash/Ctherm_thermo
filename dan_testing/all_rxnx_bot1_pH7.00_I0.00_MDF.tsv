@@ -1,0 +1,75 @@
+!!!SBtab SBtabVersion='1.0' Document='model' Date='2018-12-6'
+!!SBtab TableID='Reaction' TableType='Reaction' TableName='Reaction' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6'
+!ID	!Name	!ReactionFormula	!Identifiers:kegg.reaction
+R_phosphogly_R01518	R_phosphogly_R01518	C_3_phospho_d_glycerate <=> C_2_phospho_d_glycerate	R01518
+R_phosphopyr_R00658	R_phosphopyr_R00658	C_2_phospho_d_glycerate <=> C_phosphoenolpyruvate + C_h2o	R00658
+R_pyruvate_k_R00200	R_pyruvate_k_R00200	C_adp + C_phosphoenolpyruvate <=> C_pyruvate + C_atp	R00200
+R_pyruvate_p_R00206	R_pyruvate_p_R00206	C_amp + C_diphosphate + C_phosphoenolpyruvate <=> C_atp + C_orthophosphate + C_pyruvate	R00206
+R_phosphoeno_R00431	R_phosphoeno_R00431	C_gdp + C_co2 + C_phosphoenolpyruvate <=> C_gtp + C_oxaloacetate	R00431
+R_malate_deh_R00342	R_malate_deh_R00342	C_nadh + C_oxaloacetate <=> C_nad + C_s_malate	R00342
+R_malate_deh_R00216	R_malate_deh_R00216	C_nadp + C_s_malate <=> C_nadph + C_co2 + C_pyruvate	R00216
+
+!!SBtab TableID='Compound' TableType='Compound' TableName='Compound' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6'
+!ID	!Name	!Identifiers:kegg.compound	!IsConstant
+C_pyruvate	C_pyruvate	C00022	False
+C_co2	C_co2	C00011	False
+C_phosphoenolpyruvate	C_phosphoenolpyruvate	C00074	False
+C_amp	C_amp	C00020	False
+C_3_phospho_d_glycerate	C_3_phospho_d_glycerate	C00197	False
+C_diphosphate	C_diphosphate	C00013	False
+C_oxaloacetate	C_oxaloacetate	C00036	False
+C_gdp	C_gdp	C00035	False
+C_nadph	C_nadph	C00005	False
+C_nadh	C_nadh	C00004	False
+C_2_phospho_d_glycerate	C_2_phospho_d_glycerate	C00631	False
+C_s_malate	C_s_malate	C00149	False
+C_gtp	C_gtp	C00044	False
+C_atp	C_atp	C00002	False
+C_nadp	C_nadp	C00006	False
+C_adp	C_adp	C00008	False
+C_nad	C_nad	C00003	False
+C_orthophosphate	C_orthophosphate	C00009	False
+C_h2o	C_h2o	C00001	False
+
+!!SBtab TableID='RelativeFlux' TableType='Quantity' TableName='RelativeFlux' DocumentName=' Document=' Unit='mM/s' SBtabVersion='1.0' Date='2018-12-6'
+!QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value
+flux	R_phosphogly_R01518	R01518	4.0
+flux	R_phosphopyr_R00658	R00658	4.0
+flux	R_pyruvate_k_R00200	R00200	4.0
+flux	R_pyruvate_p_R00206	R00206	4.0
+flux	R_phosphoeno_R00431	R00431	4.0
+flux	R_malate_deh_R00342	R00342	4.0
+flux	R_malate_deh_R00216	R00216	4.0
+
+!!SBtab TableID='ConcentrationConstraint' TableType='Quantity' TableName='ConcentrationConstraint' DocumentName=' Document=' Unit='M' SBtabVersion='1.0' Date='2018-12-6'
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max
+concentration	C_pyruvate	C00022	1e-06	0.01
+concentration	C_co2	C00011	1e-05	1e-05
+concentration	C_phosphoenolpyruvate	C00074	1e-06	0.01
+concentration	C_amp	C00020	0.0005	0.0005
+concentration	C_3_phospho_d_glycerate	C00197	1e-06	0.01
+concentration	C_diphosphate	C00013	0.001	0.001
+concentration	C_oxaloacetate	C00036	1e-06	0.01
+concentration	C_gdp	C00035	1e-06	0.01
+concentration	C_nadph	C00005	0.0001	0.0001
+concentration	C_nadh	C00004	0.0001	0.0001
+concentration	C_2_phospho_d_glycerate	C00631	1e-06	0.01
+concentration	C_s_malate	C00149	1e-06	0.01
+concentration	C_gtp	C00044	1e-06	0.01
+concentration	C_atp	C00002	0.005	0.005
+concentration	C_nadp	C00006	1e-05	1e-05
+concentration	C_adp	C00008	0.0005	0.0005
+concentration	C_nad	C00003	0.001	0.001
+concentration	C_orthophosphate	C00009	0.01	0.01
+concentration	C_h2o	C00001	1.0	1.0
+
+!!SBtab TableID='Parameter' TableType='Quantity' TableName='Parameter' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6' pH='7.00' IonicStrength='0.00' IonicStrengthUnit='M'
+!QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
+equilibrium constant	R_phosphogly_R01518		0.16073232107023133	dimensionless	R01518		kEQ_R_phosphogly_R01518
+equilibrium constant	R_phosphopyr_R00658		5.213382680455473	dimensionless	R00658		kEQ_R_phosphopyr_R00658
+equilibrium constant	R_pyruvate_k_R00200		126619.18574039286	dimensionless	R00200		kEQ_R_pyruvate_k_R00200
+equilibrium constant	R_pyruvate_p_R00206		14824.476561862266	dimensionless	R00206		kEQ_R_pyruvate_p_R00206
+equilibrium constant	R_phosphoeno_R00431		118.80932149034236	dimensionless	R00431		kEQ_R_phosphoeno_R00431
+equilibrium constant	R_malate_deh_R00342		561028.4738104002	dimensionless	R00342		kEQ_R_malate_deh_R00342
+equilibrium constant	R_malate_deh_R00216		0.0013065342996872896	dimensionless	R00216		kEQ_R_malate_deh_R00216
+

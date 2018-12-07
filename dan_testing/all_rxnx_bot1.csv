@@ -1,0 +1,9 @@
+ReactionFormula,RelativeFlux
+D-Glycerate-3-phosphate <=> D-Glycerate-2-phosphate,4
+D-Glycerate-2-phosphate <=> Phosphoenolpyruvate + H2O,4
+ADP + Phosphoenolpyruvate <=> Pyruvate + ATP,4
+AMP + PPi + Phosphoenolpyruvate -> ATP + Phosphate + Pyruvate + H+,4
+GDP + CO2 + Phosphoenolpyruvate <=> GTP + Oxaloacetate,4
+NADH + Oxaloacetate <=> NAD+ + (S)-Malate,4
+NADP  + (S)-Malate <=> NADPH + CO2 + Pyruvate,4
+

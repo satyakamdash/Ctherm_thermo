@@ -1,0 +1,82 @@
+!!!SBtab SBtabVersion='1.0' Document='model' Date='2018-12-6'
+!!SBtab TableID='Reaction' TableType='Reaction' TableName='Reaction' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6'
+!ID	!Name	!ReactionFormula	!Identifiers:kegg.reaction
+R_pyruvate_s_R01196	R_pyruvate_s_R01196	C_coa + 2 C_oxidized_ferredoxin + C_pyruvate <=> C_acetyl_coa + 2 C_reduced_ferredoxin + C_co2	R01196
+R_RXN_Q00012	R_RXN_Q00012	2 C_reduced_ferredoxin + C_nad + 0.25 C_adp + 0.25 C_orthophosphate <=> 2 C_oxidized_ferredoxin + C_nadh + 0.25 C_atp + 0.25 C_h2o	
+R_RXN_Q00013	R_RXN_Q00013	2 C_reduced_ferredoxin + C_nad + C_orthophosphate <=> 2 C_oxidized_ferredoxin + C_nadh + 0.5 C_diphosphate + 0.5 C_h2o	
+R_RXN_Q00014	R_RXN_Q00014	2 C_reduced_ferredoxin + C_nadh + 2 C_nadp <=> 2 C_oxidized_ferredoxin + C_nad + 2 C_nadph	
+R_pyruvate_d_R00224	R_pyruvate_d_R00224	C_pyruvate <=> C_acetaldehyde + C_co2	R00224
+R_acetaldehy_R00228	R_acetaldehy_R00228	C_nadh + C_acetyl_coa <=> C_nad + C_coa + C_acetaldehyde	R00228
+R_RXN_Q00015	R_RXN_Q00015	C_nadph + C_acetyl_coa <=> C_nadp + C_coa + C_acetaldehyde	
+R_adh_R00754	R_adh_R00754	C_acetaldehyde + C_nadh <=> C_ethanol + C_nad	R00754
+R_retinal_re_R00746	R_retinal_re_R00746	C_acetaldehyde + C_nadph <=> C_ethanol + C_nadp	R00746
+R_hydrogenas_R09508	R_hydrogenas_R09508	2 C_reduced_ferredoxin + C_nadh <=> C_nad + 2 C_hydrogen + 2 C_oxidized_ferredoxin	R09508
+
+!!SBtab TableID='Compound' TableType='Compound' TableName='Compound' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6'
+!ID	!Name	!Identifiers:kegg.compound	!IsConstant
+C_pyruvate	C_pyruvate	C00022	False
+C_co2	C_co2	C00011	False
+C_ethanol	C_ethanol	C00469	False
+C_diphosphate	C_diphosphate	C00013	False
+C_coa	C_coa	C00010	False
+C_acetyl_coa	C_acetyl_coa	C00024	False
+C_hydrogen	C_hydrogen	C00282	False
+C_reduced_ferredoxin	C_reduced_ferredoxin	C00138	False
+C_nadph	C_nadph	C00005	False
+C_nadh	C_nadh	C00004	False
+C_acetaldehyde	C_acetaldehyde	C00084	False
+C_oxidized_ferredoxin	C_oxidized_ferredoxin	C00139	False
+C_atp	C_atp	C00002	False
+C_nadp	C_nadp	C00006	False
+C_adp	C_adp	C00008	False
+C_nad	C_nad	C00003	False
+C_orthophosphate	C_orthophosphate	C00009	False
+C_h2o	C_h2o	C00001	False
+
+!!SBtab TableID='RelativeFlux' TableType='Quantity' TableName='RelativeFlux' DocumentName=' Document=' Unit='mM/s' SBtabVersion='1.0' Date='2018-12-6'
+!QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value
+flux	R_pyruvate_s_R01196	R01196	4.0
+flux	R_RXN_Q00012		4.0
+flux	R_RXN_Q00013		4.0
+flux	R_RXN_Q00014		4.0
+flux	R_pyruvate_d_R00224	R00224	4.0
+flux	R_acetaldehy_R00228	R00228	4.0
+flux	R_RXN_Q00015		4.0
+flux	R_adh_R00754	R00754	4.0
+flux	R_retinal_re_R00746	R00746	4.0
+flux	R_hydrogenas_R09508	R09508	4.0
+
+!!SBtab TableID='ConcentrationConstraint' TableType='Quantity' TableName='ConcentrationConstraint' DocumentName=' Document=' Unit='M' SBtabVersion='1.0' Date='2018-12-6'
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max
+concentration	C_pyruvate	C00022	1e-06	0.01
+concentration	C_co2	C00011	1e-05	1e-05
+concentration	C_ethanol	C00469	1e-06	0.01
+concentration	C_diphosphate	C00013	0.001	0.001
+concentration	C_coa	C00010	0.001	0.001
+concentration	C_acetyl_coa	C00024	1e-06	0.01
+concentration	C_hydrogen	C00282	1e-06	0.01
+concentration	C_reduced_ferredoxin	C00138	0.0001	0.0001
+concentration	C_nadph	C00005	0.0001	0.0001
+concentration	C_nadh	C00004	0.0001	0.0001
+concentration	C_acetaldehyde	C00084	1e-06	0.01
+concentration	C_oxidized_ferredoxin	C00139	0.0001	0.0001
+concentration	C_atp	C00002	0.005	0.005
+concentration	C_nadp	C00006	1e-05	1e-05
+concentration	C_adp	C00008	0.0005	0.0005
+concentration	C_nad	C00003	0.001	0.001
+concentration	C_orthophosphate	C00009	0.01	0.01
+concentration	C_h2o	C00001	1.0	1.0
+
+!!SBtab TableID='Parameter' TableType='Quantity' TableName='Parameter' DocumentName=' Document=' Unit=' SBtabVersion='1.0' Date='2018-12-6' pH='7.00' IonicStrength='0.00' IonicStrengthUnit='M'
+!QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
+equilibrium constant	R_pyruvate_s_R01196		3069.055164744665	dimensionless	R01196		kEQ_R_pyruvate_s_R01196
+equilibrium constant	R_RXN_Q00012		17.860155128089687	dimensionless			kEQ_R_RXN_Q00012
+equilibrium constant	R_RXN_Q00013		8.7104739234395	dimensionless			kEQ_R_RXN_Q00013
+equilibrium constant	R_RXN_Q00014		19.086986753977556	dimensionless			kEQ_R_RXN_Q00014
+equilibrium constant	R_pyruvate_d_R00224		2656.1425546623545	dimensionless	R00224		kEQ_R_pyruvate_d_R00224
+equilibrium constant	R_acetaldehy_R00228		0.002846181732380425	dimensionless	R00228		kEQ_R_acetaldehy_R00228
+equilibrium constant	R_RXN_Q00015		0.011360199806480707	dimensionless			kEQ_R_RXN_Q00015
+equilibrium constant	R_adh_R00754		16938.267692130037	dimensionless	R00754		kEQ_R_adh_R00754
+equilibrium constant	R_retinal_re_R00746		67607.10434232207	dimensionless	R00746		kEQ_R_retinal_re_R00746
+equilibrium constant	R_hydrogenas_R09508		1.6633766176554125e-09	dimensionless	R09508		kEQ_R_hydrogenas_R09508
+

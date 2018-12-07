@@ -1,0 +1,18 @@
+ReactionFormula,RelativeFlux
+D-Glycerate-3-phosphate <=> D-Glycerate-2-phosphate,4
+D-Glycerate-2-phosphate <=> Phosphoenolpyruvate + H2O,4
+ADP + Phosphoenolpyruvate <=> Pyruvate + ATP,4
+AMP + PPi + Phosphoenolpyruvate -> ATP + Phosphate + Pyruvate + H+,4
+GDP + CO2 + Phosphoenolpyruvate <=> GTP + Oxaloacetate,4
+NADH + Oxaloacetate <=> NAD+ + (S)-Malate,4
+NADP  + (S)-Malate <=> NADPH + CO2 + Pyruvate,4
+CoA + 2 Ferredoxin(ox) + Pyruvate -> H+ + Acetyl-CoA + 2 Ferredoxin(red) + CO2,4
+2 Ferredoxin(red) + 1 NAD + 1.25 H+ + 0.25 ADP + 0.25 Phosphate -> 2 Ferredoxin(ox) + 1 NADH + 0.25 ATP + 0.25 H2O ,4
+2 Ferredoxin(red) + 1 NAD + 1.5 H+ + 1 Phosphate -> 2 Ferredoxin(ox) + 1 NADH + 0.5 PPi + 0.5 H2O ,4
+2 ferredoxin(red) + NADH + 2 NADP+ = 2 ferredoxin(ox) + NAD+ + 2 NADPH,4
+Pyruvate <=> Acetaldehyde + CO2,4
+NADH + Acetyl-CoA <=> NAD+ + CoA + Acetaldehyde,4
+NADPH + Acetyl-CoA <=> NADP+ + CoA + Acetaldehyde,4
+Acetaldehyde + NADH <=> Ethanol + NAD+,4
+Acetaldehyde + NADPH <=> Ethanol + NADP+,4
+2 ferredoxin(red) + NADH + 2 H+ = NAD+ + 2 H2 + 2 Ferredoxin(ox),1

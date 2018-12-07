@@ -1,0 +1,18 @@
+ReactionFormula,RelativeFlux
+H2O + ATP <=> ADP + Phosphate ,1
+Phosphate + Cellobiose <=> D-Glucose + Glucose-1-phosphate ,1
+D-Glucose + GTP <=> D-Glucose-6-phosphate + GDP,1
+Glucose-1-phosphate <=> D-glucose-6-phosphate ,1
+D-Glucose-6-phosphate <=> D-Fructose-6-phosphate,2
+"PPi + D-fructose-6-phosphate <=> Phosphate + D-Fructose-1,6-bisphosphate + H+ ",2
+"D-Fructose-1,6-bisphosphate <=> Glycerone-phosphate + D-Glyceraldehyde-3-phosphate",2
+Glycerone-phosphate <=> D-Glyceraldehyde-3-phosphate,4
+"Phosphate + NAD + D-Glyceraldehyde-3-phosphate <=> NADH + 1,3-Bisphosphoglycerate",4
+"GDP + 1,3-Bisphosphoglycerate <=> GTP + D-Glycerate-3-phosphate",4
+D-Glycerate-3-phosphate <=> D-Glycerate-2-phosphate,4
+D-Glycerate-2-phosphate <=> Phosphoenolpyruvate + H2O,4
+AMP + PPi + Phosphoenolpyruvate <=> ATP + Phosphate + Pyruvate + H+,4
+CoA + 2 Ferredoxin(ox) + Pyruvate <=> H+ + Acetyl-CoA + 2 Ferredoxin(red) + CO2,4
+2 Ferredoxin(red) + 1 NAD + 1.5 H+ + 1 Phosphate <=> 2 Ferredoxin(ox) + 1 NADH + 0.5 PPi + 0.5 H2O ,4
+NADH + Acetyl-CoA <=> NAD + CoA + Acetaldehyde,4
+Acetaldehyde + NADH <=> Ethanol + NAD,4
