@@ -1,0 +1,880 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Analyzing\_metabolites\_DO}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Using thermodynamic analysis to guide metabolic
+engineering}\label{using-thermodynamic-analysis-to-guide-metabolic-engineering}
+
+DO 12-6-2018\\
+Using Python 3 and eQuilibrator API
+
+DO 12-17-2018\\
+Looking at different ethanol ratios
+
+DO 12-19-2018\\
+Using measured metabolite data to further constrain the system
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{array}\PY{p}{,} \PY{n}{eye}\PY{p}{,} \PY{n}{log}\PY{p}{,} \PY{n}{zeros}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{equilibrator\PYZus{}api} \PY{k}{import} \PY{n}{Reaction}\PY{p}{,} \PY{n}{ComponentContribution}\PY{p}{,} \PY{n}{ReactionMatcher}\PY{p}{,} \PY{n}{CompoundMatcher}\PY{p}{,} \PY{n}{ParseError}\PY{p}{,} \PY{n}{Pathway}
+        \PY{k+kn}{from} \PY{n+nn}{equilibrator\PYZus{}api}\PY{n+nn}{.}\PY{n+nn}{bounds} \PY{k}{import} \PY{n}{Bounds}\PY{p}{,} \PY{n}{DEFAULT\PYZus{}BOUNDS}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{FormatStrFormatter}
+        \PY{k+kn}{import} \PY{n+nn}{copy} \PY{c+c1}{\PYZsh{} for copying pp objects}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsection{Set up translator for KEGG
+IDs}\label{set-up-translator-for-kegg-ids}
+
+Note: I set these up as dataframes because I was troubleshooting an
+issue with duplicate KEGG IDs. Eventually I think these should be set up
+as dictionaries, to make the code more readable
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} set up the reaction bounds}
+        \PY{c+c1}{\PYZsh{} make a dataframe with the upper and lower bounds}
+        \PY{k}{def} \PY{n+nf}{bounds\PYZus{}to\PYZus{}df}\PY{p}{(}\PY{n}{compounds}\PY{p}{,} \PY{n}{bounds}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Make a dataframe with concentrations. Choose column names to make it easy to }
+        \PY{l+s+sd}{    convert the dataframe back to a bounds object}
+        \PY{l+s+sd}{    Args:}
+        \PY{l+s+sd}{        compounds = list of KEGG IDs}
+        \PY{l+s+sd}{        bounds = equilibrator\PYZhy{}api bounds object}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{boundsDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{compounds}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compound:Identifiers:kegg.compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} I had to choose this clunky column name to make it work with bounds.py }
+                                                                                                            \PY{c+c1}{\PYZsh{} from\PYZus{}dataframe method}
+            \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compound:Identifiers:kegg.compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{kta}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} add abbreviations}
+            \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration:Max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compound:Identifiers:kegg.compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{bounds}\PY{o}{.}\PY{n}{GetUpperBound}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+            \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration:Min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{boundsDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compound:Identifiers:kegg.compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{bounds}\PY{o}{.}\PY{n}{GetLowerBound}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{boundsDf}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} make a dictionary to translate KEGG IDs into human\PYZhy{}readable abbreviations}
+        \PY{n}{keggTranslatorDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG\PYZus{}SEED\PYZus{}DO.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{kt} \PY{o}{=} \PY{n}{keggTranslatorDf} \PY{c+c1}{\PYZsh{}short name for easier typing}
+        
+        \PY{c+c1}{\PYZsh{} translate KEGG ID to abbreviation}
+        \PY{n}{kta} \PY{o}{=} \PY{n}{kt}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABBREVIATION}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{kta}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kta}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} set to lower case for better matching}
+        \PY{n}{kta}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{atkDict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{kt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABBREVIATION}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{kt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ktaDict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{kt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG ID(S)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{kt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABBREVIATION}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Set up model}\label{set-up-model}
+
+\begin{itemize}
+\tightlist
+\item
+  Choose reactions
+\item
+  Set fluxes
+\item
+  Set pH and ionic strength
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} need to declare pH and ionic strength constants at the beginning}
+        \PY{c+c1}{\PYZsh{} they are used in the make\PYZus{}pathway function}
+        \PY{n}{PH} \PY{o}{=} \PY{l+m+mf}{7.0}
+        \PY{n}{IS} \PY{o}{=} \PY{l+m+mf}{0.1}
+        
+        \PY{c+c1}{\PYZsh{} load stoichiometric model from Excel file}
+        \PY{n}{allRxnDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cth\PYZus{}thermo\PYZus{}model\PYZus{}DO\PYZus{}SD2.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} using Satya\PYZsq{}s version}
+                                 \PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reactions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} make list of flux sets from excel file column names}
+        \PY{c+c1}{\PYZsh{} all of the column names from \PYZsq{}ppi\PYZhy{}pfk\PYZsq{} to \PYZsq{}mal\PYZhy{}gapn\PYZsq{} inclusive}
+        \PY{n}{fluxSets} \PY{o}{=} \PY{n}{allRxnDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ppi\PYZhy{}pfk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values} 
+        
+        \PY{c+c1}{\PYZsh{} load bounds information from the model}
+        \PY{n}{boundsDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cth\PYZus{}thermo\PYZus{}model\PYZus{}DO\PYZus{}SD2.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} using Satya\PYZsq{}s version}
+                                 \PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{metabolite\PYZus{}bounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{allRxnDf}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}       Name                                   PlaintextFormula  \textbackslash{}
+        0     CBtx                     H2O + ATP <=> ADP + Phosphate    
+        1      CBP  Phosphate + Cellobiose <=> D-Glucose + Glucose{\ldots}   
+        2      BGL                   Cellobiose + H2O <=> 2 D-Glucose   
+        3  GLK-GTP    D-Glucose + GTP <=> D-Glucose-6-phosphate + GDP   
+        4  GLK-ATP    D-Glucose + ATP <=> D-Glucose-6-phosphate + ADP   
+        
+                   AbbreviationFormula                           KeggFormula  \textbackslash{}
+        0      h2o + atp <=> adp + pi   C00001 + C00002 <=> C00008 + C00009    
+        1  pi + cellb <=> glc-D + g1p   C00009 + C00185 <=> C00031 + C00103    
+        2       cellb + h2o <=>2 glc-D          C00185 + C00001 <=> 2 C00031   
+        3   glc-D + gtp <=> g6p + gdp   C00031 + C00044 <=> C00092 + C00035    
+        4   glc-D + atp <=> g6p + adp   C00031 + C00002 <=> C00092 + C00008    
+        
+                                             Notes  ppi-pfk  atp-pfk  mal-snt  pdc  \textbackslash{}
+        0  ATP hydrolysis for cellobiose transport        1        1        1    1   
+        1                                      NaN        1        1        1    1   
+        2                         Beta glucosidase        0        0        0    0   
+        3                                      NaN        1        1        1    1   
+        4                                      NaN        0        0        0    0   
+        
+           gapn  pyk  aldh-ndp  adh-ndp  mal-gapn  tsac  
+        0     1    1         1        1         1     1  
+        1     1    1         1        1         1     0  
+        2     0    0         0        0         0     1  
+        3     1    1         1        1         1     0  
+        4     0    0         0        0         0     2  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}pathway}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{,} \PY{n}{allRxnDf}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Given a fluxSet name, return the parsed pathway object}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{       fluxSet: is the name of a column in the Excel model file}
+         \PY{l+s+sd}{       allRxnDf: a dataframe with the model reactions}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} choose a flux set, and drop all of the zero\PYZhy{}flux reactions}
+             \PY{n}{selectedRxnDf} \PY{o}{=} \PY{n}{allRxnDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{allRxnDf}\PY{p}{[}\PY{n}{fluxSet}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AbbreviationFormula}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KeggFormula}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fluxSet}\PY{p}{]}\PY{p}{]}
+             \PY{n}{selectedRxnDf}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{fluxSet}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} rename the flux columns to \PYZsq{}flux\PYZsq{} to simplify subsequent}
+                                                                              \PY{c+c1}{\PYZsh{} processing}
+             \PY{c+c1}{\PYZsh{}selectedRxnDf}
+             \PY{c+c1}{\PYZsh{} parse the KeggFormula column to create eQuilibrator Reaction objects}
+             \PY{c+c1}{\PYZsh{} create reaction list}
+             \PY{n}{reactions} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{selectedRxnDf}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{rxn} \PY{o}{=} \PY{n}{Reaction}\PY{o}{.}\PY{n}{parse\PYZus{}formula}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KeggFormula}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{rid} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{rxn}\PY{o}{.}\PY{n}{check\PYZus{}full\PYZus{}reaction\PYZus{}balancing}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{reactions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rxn}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Error: reaction }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ is not balanced}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AbbreviationFormula}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} create flux list}
+             \PY{n}{fluxes} \PY{o}{=} \PY{n}{selectedRxnDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+             \PY{c+c1}{\PYZsh{} calculate dGO\PYZus{}r\PYZus{}primes}
+             \PY{n}{dG0\PYZus{}r\PYZus{}primes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{reactions}\PY{p}{:}
+                 \PY{n}{result} \PY{o}{=} \PY{n}{r}\PY{o}{.}\PY{n}{dG0\PYZus{}prime}\PY{p}{(}\PY{n}{pH} \PY{o}{=} \PY{n}{PH}\PY{p}{,} \PY{n}{ionic\PYZus{}strength} \PY{o}{=} \PY{n}{IS}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(result)}
+                 \PY{n}{dG0\PYZus{}r\PYZus{}primes}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} set up the model}
+             \PY{n}{pp} \PY{o}{=} \PY{n}{Pathway}\PY{p}{(}\PY{n}{reactions} \PY{o}{=} \PY{n}{reactions}\PY{p}{,} \PY{n}{fluxes} \PY{o}{=} \PY{n}{fluxes}\PY{p}{,} \PY{n}{dG0\PYZus{}r\PYZus{}primes} \PY{o}{=} \PY{n}{dG0\PYZus{}r\PYZus{}primes}\PY{p}{,} 
+                          \PY{n}{pH} \PY{o}{=} \PY{n}{PH}\PY{p}{,} \PY{n}{ionic\PYZus{}strength} \PY{o}{=} \PY{n}{IS}\PY{p}{,} \PY{n}{bounds} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pp}
+\end{Verbatim}
+
+
+    \subsection{Get measured metabolite data and use it to set
+bounds}\label{get-measured-metabolite-data-and-use-it-to-set-bounds}
+
+\begin{itemize}
+\tightlist
+\item
+  There are several datasets to choose from. For now, I'm going to focus
+  on dataset 2, which we think is the highest quality.
+\item
+  Note that the originaly analysis Josh did was based on dataset 1,
+  which has more timepoints, but the sampling was done aerobically
+  instead of anaerobically
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} get processed metabolite data}
+        \PY{n}{metDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{metabolite\PYZus{}data/lt\PYZus{}dataset2\PYZus{}quantified.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Translate metabolite names to KEGG IDs using KNOWNS csv file}
+        \PY{c+c1}{\PYZsh{} The plaintext names of the compounds are slightly different from whats in the KEGG\PYZus{}SEED file}
+        \PY{c+c1}{\PYZsh{} Fortunately, the file also has KEGG IDs}
+        \PY{n}{stdsDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{metabolite\PYZus{}data/KNOWNS\PYZhy{}Dan121218v2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{stdsDf}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} map KEGG IDs to the metDf dataframe}
+        \PY{n}{metDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{metDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{stdsDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Fix ethanol data so that it\PYZsq{}s similar to other metabolites}
+        \PY{n}{etohGtoM} \PY{o}{=} \PY{l+m+mf}{46.07}
+        \PY{n}{etDf} \PY{o}{=} \PY{n}{metDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ethanol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Timepoint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (h)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Replicate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ EtOH concentraion (g/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} watch out for space in front of EtOH column name}
+        \PY{n}{etDf} \PY{o}{=} \PY{n}{etDf}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+        \PY{n}{etDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C00469}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} KEGG ID for ethanol}
+        \PY{n}{etDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ethanol}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{etDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount\PYZus{}int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{etDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ EtOH concentraion (g/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{etohGtoM}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1e6} \PY{c+c1}{\PYZsh{} ethanol concentration in the cells is the same as the concentration in the bulk solution, units of uM}
+        
+        \PY{c+c1}{\PYZsh{} append ethanol data to existing metabolite dataframe}
+        \PY{n}{metDf2} \PY{o}{=} \PY{n}{metDf}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{etDf}\PY{p}{,} \PY{n}{sort} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{metDf2}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    ID Sample Ethanol  Timepoint  Time (h)  Replicate Maven filename  \textbackslash{}
+        0   1      A   +EtOH          2  2.016667          1           A1\_1   
+        1   1      A   +EtOH          2  2.016667          1           A1\_1   
+        2   1      A   +EtOH          2  2.016667          1           A1\_1   
+        3   1      A   +EtOH          2  2.016667          1           A1\_1   
+        4   1      A   +EtOH          2  2.016667          1           A1\_1   
+        
+            EtOH concentraion (g/L)   OD  sample volume ml  ODxml    compound  \textbackslash{}
+        0                         5  0.2              10.0    2.0         3PG   
+        1                         5  0.2              10.0    2.0  Acetyl-CoA   
+        2                         5  0.2              10.0    2.0         ADP   
+        3                         5  0.2              10.0    2.0         AMP   
+        4                         5  0.2              10.0    2.0         ATP   
+        
+           peakAreaTop     amount  amount\_int KEGG\_ID  
+        0   8703433.00   3.400159  217.958918  C00197  
+        1   1346292.12   6.497535  416.508650  C00024  
+        2    988751.06   1.833074  117.504732  C00008  
+        3   9313822.00  12.582890  806.595532  C00020  
+        4    623393.06   0.534866   34.286253  C00002  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} stopped here 2:03 pm 12\PYZhy{}20\PYZhy{}2018}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} sort the samples in an order that will be useful for subsequent visualization}
+          \PY{n}{sampleDf} \PY{o}{=} \PY{n}{metDf2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sampleDf}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} drop NaN rows that were added due to ethanol changes}
+          \PY{n}{sampleDf}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Replicate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Timepoint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} make new colums}
+          \PY{n}{sampleDf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{graphName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{sampleDf}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{graphName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maven filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ et=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ EtOH concentraion (g/L)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              
+          \PY{n}{sampleDf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:}      ID Sample  Ethanol  Timepoint  Time (h)  Replicate Maven filename  \textbackslash{}
+          0     1      A    +EtOH          2  2.016667          1           A1\_1   
+          46    3      A    +EtOH          5  3.750000          1           A2\_1   
+          91    5      A    +EtOH          9  5.916667          1           A3\_1   
+          23    2      A    +EtOH          2  2.016667          2           A1\_2   
+          69    4      A    +EtOH          5  3.750000          2           A2\_2   
+          113   6      A    +EtOH          9  5.916667          2           A3\_2   
+          136   7      B  no EtOH          2  2.016667          1           B1\_1   
+          181   9      B  no EtOH          5  3.750000          1           B2\_1   
+          224  11      B  no EtOH          9  5.916667          1           B3\_1   
+          158   8      B  no EtOH          2  2.016667          2           B1\_2   
+          203  10      B  no EtOH          5  3.750000          2           B2\_2   
+          246  12      B  no EtOH          9  5.916667          2           B3\_2   
+          
+                EtOH concentraion (g/L)    OD graphName  
+          0                           5  0.20            
+          46                         20  0.27            
+          91                         40  0.29            
+          23                          5  0.20            
+          69                         20  0.27            
+          113                        40  0.29            
+          136                         5  0.21            
+          181                        20  0.58            
+          224                        40  1.40            
+          158                         5  0.21            
+          203                        20  0.58            
+          246                        40  1.40            
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} generate bounds objects for each condition within a dataset}
+         \PY{k}{def} \PY{n+nf}{generate\PYZus{}bounds}\PY{p}{(}\PY{n}{metaboliteDf}\PY{p}{,} \PY{n}{errorFactor} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{metsToExclude} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Given a dataframe with metabolite values, generate a new bounds object}
+         \PY{l+s+sd}{    for each ID group in the metabolite dataframe}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        metaboliteDf: a dataframe with the following columns}
+         \PY{l+s+sd}{           \PYZsq{}ID\PYZsq{} \PYZhy{} each metabolite group has an ID, and represents a unique combination of Sample, Timepoint and Replicate}
+         \PY{l+s+sd}{           \PYZsq{}amount\PYZus{}int\PYZsq{} \PYZhy{} intracellular metabolite concentration in uM}
+         \PY{l+s+sd}{        errorFactor: factor by which upper and lower bounds are adjusted to account for uncertainty}
+         \PY{l+s+sd}{        metsToExclude: a list of KEGG IDs to skip over when setting bounds}
+         \PY{l+s+sd}{                       for example, metabolites whose concentration data we}
+         \PY{l+s+sd}{                       don\PYZsq{}t trust}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{EQ\PYZus{}BOUNDS} \PY{o}{=} \PY{n}{Bounds}\PY{o}{.}\PY{n}{from\PYZus{}csv\PYZus{}filename}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/cofactors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} need to decide if I want to adjust the default bounds to the max and min values from the metabolite dataframe}
+             \PY{n}{boundsList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{g} \PY{o}{=} \PY{n}{metaboliteDf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} group the metabolite dataframe by the ID column}
+             \PY{n}{idList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{groups}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} all of the keys in the group}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{g}\PY{p}{:}
+                 \PY{n}{newBounds} \PY{o}{=} \PY{n}{EQ\PYZus{}BOUNDS}\PY{o}{.}\PY{n}{Copy}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{group}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{cid} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KEGG\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{n}{amt} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount\PYZus{}int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{1e\PYZhy{}6} \PY{c+c1}{\PYZsh{} amount is in uM, need to convert to M}
+                     \PY{k}{if} \PY{n}{cid} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{metsToExclude}\PY{p}{:}
+                         \PY{n}{newBounds}\PY{o}{.}\PY{n}{SetBounds}\PY{p}{(}\PY{n}{cid}\PY{p}{,} \PY{n}{amt}\PY{o}{/}\PY{n}{errorFactor}\PY{p}{,} \PY{n}{amt}\PY{o}{*}\PY{n}{errorFactor}\PY{p}{)}
+                 \PY{n}{boundsList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{newBounds}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} make a new dataframe with the ID and bounds object for each group}
+             \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{idList}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{boundsList}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} set bounds for each condition within a dataset}
+         \PY{n}{metaboliteDf} \PY{o}{=} \PY{n}{metDf2}
+         \PY{n}{errorFactor} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} factor by which upper and lower bounds are adjusted to account for uncertainty}
+         \PY{n}{metsToExclude} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C00197}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} for testing this function}
+         
+         \PY{n}{myBoundsDf} \PY{o}{=} \PY{n}{set\PYZus{}model\PYZus{}bounds}\PY{p}{(}\PY{n}{metDf2}\PY{p}{,} \PY{n}{errorFactor}\PY{p}{)}
+         \PY{n}{myBoundsDf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:}                                                Bounds
+         ID                                                   
+         1   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         2   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         3   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         4   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         5   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         6   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         7   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         8   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         9   <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         10  <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         11  <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+         12  <equilibrator\_api.bounds.Bounds object at 0x00{\ldots}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} checking the bounds objects to make sure things are set up the way I want}
+         \PY{n}{myMetList} \PY{o}{=} \PY{n}{metDf2}\PY{o}{.}\PY{n}{KEGG\PYZus{}ID}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{myBoundsDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{bounds\PYZus{}to\PYZus{}df}\PY{p}{(}\PY{n}{myMetList}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:}    Compound:Identifiers:kegg.compound   Name  Concentration:Max  \textbackslash{}
+         0                              C00197    3pg           0.000348   
+         1                              C00024  accoa           0.000073   
+         2                              C00008    adp           0.000467   
+         3                              C00020    amp           0.001641   
+         4                              C00002    atp           0.000218   
+         5                              C00185  cellb           0.044617   
+         6                              C00010    coa           0.000133   
+         7                              C00111   dhap           0.000008   
+         8                              C00354    fdp           0.000025   
+         9                              C00085    f6p           0.003785   
+         10                             C00103    g1p           0.002319   
+         11                             C00092    g6p           0.006399   
+         12                             C00035    gdp           0.000231   
+         13                             C00031  glc-D           0.009395   
+         14                             C06193   3gmp           0.000184   
+         15                             C00149  mal-L           0.000197   
+         16                             C00003    nad           0.000681   
+         17                             C00004   nadh           0.000100   
+         18                             C00006   nadp           0.000193   
+         19                             C00005  nadph           0.000100   
+         20                             C00074    pep           0.000058   
+         21                             C00022    pyr           0.000441   
+         22                             C00044    gtp           0.000009   
+         23                             C00469   etoh           0.217061   
+         
+             Concentration:Min  
+         0            0.000087  
+         1            0.000018  
+         2            0.000117  
+         3            0.000410  
+         4            0.000055  
+         5            0.011154  
+         6            0.000033  
+         7            0.000002  
+         8            0.000006  
+         9            0.000946  
+         10           0.000580  
+         11           0.001600  
+         12           0.000058  
+         13           0.002349  
+         14           0.000046  
+         15           0.000049  
+         16           0.000170  
+         17           0.000100  
+         18           0.000048  
+         19           0.000100  
+         20           0.000014  
+         21           0.000110  
+         22           0.000002  
+         23           0.054265  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} <equilibrator\_api.reaction\_matcher.ReactionMatcher at 0x23a72374c88>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}model\PYZus{}description}\PY{p}{(}\PY{n}{pp}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Given an equilibrator\PYZhy{}api pathway object, determine the net reaction }
+          \PY{l+s+sd}{    and dG0 and format into a string}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{rm} \PY{o}{=} \PY{n}{ReactionMatcher}\PY{p}{(}\PY{p}{)}
+              \PY{n}{dG0p} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{net\PYZus{}reaction}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{dG0\PYZus{}prime}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} float}
+              \PY{n}{rnxTxt} \PY{o}{=} \PY{n}{rm}\PY{o}{.}\PY{n}{write\PYZus{}text\PYZus{}formula}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{net\PYZus{}reaction}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{netRxnTxt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{∆G0=}\PY{l+s+si}{\PYZob{}0:.2f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{dG0p}\PY{p}{,} \PY{n}{rnxTxt}\PY{p}{)}
+              \PY{k}{return} \PY{n}{netRxnTxt}
+\end{Verbatim}
+
+
+    \subsection{Set up plotting}\label{set-up-plotting}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{make\PYZus{}plots}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ppi\PYZhy{}pfk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mdf\PYZus{}values}\PY{p}{,} \PY{n}{allBoundsSets}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{compDf}\PY{p}{,} \PY{n}{rxnDf}\PY{p}{,} \PY{n}{netRxns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{c+c1}{\PYZsh{} function for plotting the results}
+          \PY{k}{def} \PY{n+nf}{make\PYZus{}plots}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{,}  \PY{n}{mdf\PYZus{}values}\PY{p}{,} \PY{n}{groupId}\PY{p}{,} \PY{n}{compDf}\PY{p}{,} \PY{n}{rxnDf}\PY{p}{,} \PY{n}{netRxns}\PY{p}{,} \PY{n}{savePdf} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+              \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+              \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{gridspec} \PY{k}{import} \PY{n}{GridSpec}
+          
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+              \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Analysis of flux set: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{)}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{,} \PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{netRxns}\PY{p}{[}\PY{n}{fluxSet}\PY{p}{]}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{wrap} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{gs} \PY{o}{=} \PY{n}{GridSpec}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figure}\PY{o}{=}\PY{n}{fig}\PY{p}{)}
+          
+              \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} for MDF plot}
+              \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} for shadow price plot}
+              \PY{n}{ax3} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} metabolite concentrations}
+              \PY{n}{ax4} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{gs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} metabolite shadow prices}
+          
+              \PY{c+c1}{\PYZsh{} MDF plot}
+              \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{groupId}\PY{p}{,} \PY{n}{mdf\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MDF vs metabolite set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax1}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} reaction shadow price plot}
+              \PY{n}{df} \PY{o}{=} \PY{n}{rxnDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shadow\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{linewidths} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax2}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rotation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{90}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{vmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reaction Shadow Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} concentration plot}
+              \PY{n}{df} \PY{o}{=} \PY{n}{compDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{)}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax3}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{n}{vmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metabolite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} metabolite shadow price plot}
+              \PY{n}{df} \PY{o}{=} \PY{n}{compDf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shadow\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}.apply(np.log10)}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax4}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths} \PY{o}{=} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{n}{vmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metabolite Shadow Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metabolite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{ax4}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{n}{rect}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.03}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.93}\PY{p}{]}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} save the results as a PDF if that flag is set to True}
+              \PY{k}{if} \PY{n}{savePdf}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{etoh\PYZus{}analysis\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{)}\PY{p}{,} \PY{n}{bbox\PYZus{}inches} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Analyze all flux sets}\label{analyze-all-flux-sets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{rm} \PY{o}{=} \PY{n}{ReactionMatcher}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} for translating net reactions to plaintext}
+          \PY{n}{fluxSets} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ppi\PYZhy{}pfk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} for testing, when I don\PYZsq{}t want to run through all of the flux sets}
+          \PY{c+c1}{\PYZsh{}fluxSets = allRxnDf.loc[:,\PYZsq{}ppi\PYZhy{}pfk\PYZsq{}:].columns.values}
+          \PY{n}{netRxns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{} dictionary to hold net reaction strings for each flux set}
+          
+          \PY{n}{allBoundsSets} \PY{o}{=} \PY{n}{set\PYZus{}model\PYZus{}bounds}\PY{p}{(}\PY{n}{metDf2}\PY{p}{,} \PY{n}{errorFactor} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{fluxSet} \PY{o+ow}{in} \PY{n}{fluxSets}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{********* Working on flux set }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ ************}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{)}\PY{p}{)}
+              \PY{n}{pp} \PY{o}{=} \PY{n}{make\PYZus{}pathway}\PY{p}{(}\PY{n}{fluxSet}\PY{p}{,} \PY{n}{allRxnDf}\PY{p}{)}
+              \PY{n}{netRxns}\PY{p}{[}\PY{n}{fluxSet}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}model\PYZus{}description}\PY{p}{(}\PY{n}{pp}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} calculate the min\PYZhy{}max driving force for different ethanol concentrations}
+              \PY{n}{mdf\PYZus{}result} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} store list of mdf\PYZus{}result objects, in case we want to inspect them later}
+              \PY{n}{mdf\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} store MDF values for making MDF vs. ethanol plot}
+              \PY{n}{compoundDfList} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} hold report\PYZus{}compounds dataframes}
+              \PY{n}{rxnDfList} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} hold report\PYZus{}reactions dataframes}
+              
+              \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{allBoundsSets}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  *** Working on metabolite set }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ ***}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{pp}\PY{o}{.}\PY{n}{bounds} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{result} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{calc\PYZus{}mdf}\PY{p}{(}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}result.mdf\PYZus{}plot.show() \PYZsh{} show MDF vs. reaction plot}
+                  \PY{n}{mdf\PYZus{}result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+                  \PY{n}{mdf\PYZus{}values}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{mdf}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} clean up dataframe for compounds}
+                  \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{report\PYZus{}compounds}\PY{p}{)}
+                  \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{compound}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{ktaDict}\PY{p}{)}
+                  \PY{n}{df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                  \PY{n}{mi} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{MultiIndex}\PY{o}{.}\PY{n}{from\PYZus{}product}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{mi}
+                  \PY{n}{compoundDfList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} clean up dataframe for reactions}
+                  \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{report\PYZus{}reactions}\PY{p}{)}
+                  \PY{n}{rxnIds} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{reaction\PYZus{}id} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{pp}\PY{o}{.}\PY{n}{reactions}\PY{p}{)}
+                  \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rxnIds}
+                  \PY{n}{df2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                  \PY{n}{mi2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{MultiIndex}\PY{o}{.}\PY{n}{from\PYZus{}product}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} \PY{n}{df2}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{,} \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{df2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{mi2}
+                  \PY{n}{rxnDfList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df2}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} merge all of the report\PYZus{}compound dataframes into one big one}
+              \PY{c+c1}{\PYZsh{} arrange the compound results in a dataframe to make plotting easy}
+              \PY{n}{compDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{compoundDfList}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{compDf} \PY{o}{=} \PY{n}{compDf}\PY{o}{.}\PY{n}{swaplevel}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{rxnDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{rxnDfList}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{rxnDf} \PY{o}{=} \PY{n}{rxnDf}\PY{o}{.}\PY{n}{swaplevel}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+
+********* Working on flux set ppi-pfk ************
+  *** Working on metabolite set 1 ***
+  *** Working on metabolite set 2 ***
+  *** Working on metabolite set 3 ***
+  *** Working on metabolite set 4 ***
+  *** Working on metabolite set 5 ***
+  *** Working on metabolite set 6 ***
+  *** Working on metabolite set 7 ***
+  *** Working on metabolite set 8 ***
+  *** Working on metabolite set 9 ***
+  *** Working on metabolite set 10 ***
+  *** Working on metabolite set 11 ***
+  *** Working on metabolite set 12 ***
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} checking adenylate charge}
+        \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mf}{8.0}\PY{p}{]}
+        \PY{n}{atp} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{adp} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{amp} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{atpCharge} \PY{o}{=} \PY{p}{(}\PY{n}{atp} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{adp}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{atp}\PY{o}{+}\PY{n}{adp}\PY{o}{+}\PY{n}{amp}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{atp}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{adp}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{amp}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{atpCharge}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

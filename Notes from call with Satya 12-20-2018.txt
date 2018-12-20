@@ -2,7 +2,80 @@ Notes from call with Satya 12-20-2018
 
 Topics:
 1. General discussion
-
+ * Are ATP ratios different from GTP ratios? - No
 
 1. Relative ranking of different flux sets
 2. Malate shunt differences
+
+Path forward:
+1. Choose dataset - use dataset 2
+2. Which metabolites to exclude
+   Definitely exclude
+     ATP/ADP/AMP - fix ATP/ADP ratio at 30
+     GTP/GDP/GMP - fix GTP/GDP ratio at 30
+     Cellobiose - peak is ok, but we should set this to 10 mM for all runs
+     NAD/NADH ratio - ratio can vary from 1 to 100
+     NADPH/NADP ratio - ratio can vary from 1 to 100
+     
+   Might be okay
+     Acetyl-CoA
+     3PG
+     CoA
+     Malate
+     
+   Good
+     DHAP - need to re-analyze with correct RT
+     GAP - need to re-analyze with correct RT
+     FBP
+     F6P
+     Glucose
+     G1P
+     G6P
+     PEP
+     Pyr
+     
+3. Run sensitivity analysis
+- Has the potential to identify "bad" metabolites
+- Could show which metabolite is constraining the MDF
+
+Key findings using metabolite data:
+* run 2 flux sets (ppi-pfk and ppi-pfk + malate shunt). Need to balance stoichiometry of model when we add malate shunt. (Dan will adjust model stoichiometry)
+* Is exsisting metabolite data thermodynamically consistent? (sensitivity analysis could help here)
+* Might be able to identify a regulation event
+* Show that the change in metabolites is consistent with what we would expect from metabolism being limited by thermodynamic equilibrium at the ppi-pfk reaction
+* Answer question of why ethanol production stops. Evaluate these hypotheses:
+  a) ethanol inhibits a single enzyme (i.e. regulatory event)
+  b) ethanol causes thermodynamic limitation
+  c) ethanol causes loss of membrane integrity (maybe we can't do this with the current method)
+* also run T. sacch data set. We should see a higher MDF.
+     
+Key findings from model structure (no metabolite data needed):
+* PPi ratio is very important for system. This is a high priority to measure for the next set of experiments (i.e. next paper), whereas, ATP and GTP ratios don't matter as much
+* Overall effect of various individual interventions (from best to worst, show by plotting MDF vs. ethanol concentration). 
+  - replace ppdk with malate shunt (and associated reactions)
+  - replace gapDH with gapN
+  - switch adh from NADH to NADPH
+  - switch aldh from NADH to NADPH
+  - replace pfor and aldh with pdc
+  - replace ppi-pfk with atp-pfk
+  - replace ppdk with pyk
+  - beta-glucosidase vs. cellobiose phosphorylase
+* Compare to T. sacch pathway (collection of several interventions)
+* Comprehensive set of interventions
+ - determine all EFMs 
+ - ***run through thermodynamic model, determine MDF at 1M ethanol***
+ - plot MDF vs. net ATP generation (need to make assumption about PPi to ATP conversion) at 1M ethanol
+ 
+ 
+Action items for Dan:
+- fix DHAP and G3P data
+- get notebook set up to read model data
+- improve dashboard
+
+Satya list:
+- generate EFMs with balanced NADH and NADPH cofactors, also balance GTP and ATP 
+ATP = GTP
+ATP + AMP = 2 ADP
+- all net reactions have only cellobiose, ethanol, pi, ppi, ATP, ADP
+- do sensitivity analysis (waiting on DHAP and G3P data)
+- final plot of MDF vs. EFMs at 1M ethanol
