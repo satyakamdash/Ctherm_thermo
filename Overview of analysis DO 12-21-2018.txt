@@ -1,0 +1,41 @@
+Overview of thermodynamic analysis 
+DO 12-21-2018
+
+1. Metabolite quantification
+   - I got MAVEN files for external standards run by Jingxuan Cui in 2018. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\Lexie trip to Amador-Noguez lab\LCMS standards
+   - I manually identified peaks and copied that data to a file, C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\Lexie trip to Amador-Noguez lab\LCMS standards\Standard_info_DO.xlsx
+   - I performed quadratic interpolation on the standards. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\Lexie trip to Amador-Noguez lab\LCMS standards\MAVEN_std_curves.ipynb
+   - I got MAVEN files from the datasets for Liang Tian's 2017 ethanol addition paper. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\2015-08-22 raw metabolite data from Liang (aerobic) - dataset1
+   - I manually identified peaks, and quantified them using the external standards. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\LT dataset 2 summary.xlsx
+   - I generated similar files for dataset 1 (C. therm, aerobic extraction, we don't trust this dataset because of the aerobic extraction) or dataset 3 (T. sacch wild type, in the samples with ethanol addition, we observed a strange increase in OD that was not due to cell growth, maybe some kind of precipitation? Not excited about this dataset)
+   
+2. Model setup
+   - Made an excel file with a list of reactions. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\Ctherm_thermo\cth_thermo_model_DO_SD2.xlsx.
+   - The reactions were translated to KEGG IDs using a combination of the online equilibrator tool and some python scripts. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\Ctherm_thermo\Making_reactions_file.ipynb. Each reaction was checked to make sure it was balanced for atoms and charge
+   - A series of flux sets were created. Each flux set represents a different variation of the model. The 'ppi-pfk' set is wild type C. therm. For each flux set, cellobiose --> 4 ethanol, but other cofactors aren't necessarily balanced.
+   - In the model file, I also set up some metabolite bounds to use when doing theoretical analysis of the system (see 'metabolite_bounds' tab)
+   
+3. Theoretical analysis
+   - For each flux set, I looked at what would happen for 15 different concentrations of ethanol from 10 mM to 8 M (0.5 to 370 g/L)
+   - Data summarized in this PDF file. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\Ctherm_thermo\etoh_analysis_all_results_12212018.pdf
+   
+   KEY FINDINGS:
+     * As ethanol increases, the NAD/NADH ratio has to decrease. In models where the ALDH and/or ADH reactions are NADH-linked, the NAD/NADH ratio is constrained at both its upper and lower limit.
+     * No effect of pyk vs. ppdk. This is not surprising because PPDK is generally not a limiting reaction
+     * The malate shunt has a slightly lower MDF compared with PPDK. This is due to the PEPCK reaction.
+     * Replacing PPi-PFK with ATP-PFK gives a very small improvement at low ethanol concentrations, but that improvement disappears at ethanol concentrations above about 0.7 M.
+     * Replacing NADH-ADH with NADPH-ADH gives a huge benefit. This is due to the uncoupling of the GAPDH and ADH reactions (which are linked by NADH in the wt model). 
+     * Replacing NADH-ALDH with NADPH-ALDH has a big benefit, but smaller than NADPH-ADH
+     * Replacing GAPDH with GAPN also gives a huge benefit, completely eliminating the GAPDH bottleneck
+     * Replacing PFOR and NADH-ALDH with PDC gives a big benefit, mostly due to uncoupling ALDH and GAPDH (i.e. the same reason NADPH-ALDH is better than NADH-ALDH)
+     * The Tsac flux set combines several modifications (NADPH-ADH, NADPH-ALDH, PYK instead of PPDK, ATP-PFK instead of PPi-PFK and beta-glucosidase instead of cellobiose phosphorylase). The result is a pathway with an MDF that isn't affected by ethanol concentrations up to 8 M. It will be interesting to see which aspects contribute the most to this improvement. Note, this flux set is representative of engineered T. sacch, not wild-type T. sacch. Another thing to note is that we have an engineered strain of T. sacch with NADH-ADH and NADH-ALDH, and it can still make >40 g/L ethanol, so that strain might be able to give us some experimental confirmation of the relative importance of the various modifications.
+   
+4. PPi-pfk flux set constrained by measured metabolites
+   - For the ppi-pfk flux set, I constrained the model using measured metabolites from Liang's
+   dataset 2. C:\Users\Dan\Documents\Lynd Lab research\Ctherm CBP project\thermodynamic analysis with Satya 11-30-2018\Ctherm_thermo\metabolite_bounds_ppi-pfk.pdf
+
+   KEY FINDINGS:
+     * For DHAP, I had to ignore the measured values, which were too high to allow a negative dG under almost all circumstances
+     * I set the error factor for measured metabolites to 5, which made all of set B (no ethanol addition) feasible, and set A (with ethanol) had dG values around zero (+/- 0.5)
+     * Without ethanol, the metabolic bottleneck is the set of GAPDH, TPI and FBA, for all ethanol concentrations. This is typical for glycolysis
+     * With ethanol, the metabolic bottleneck includes those reactions plus ADH and ALDH.
